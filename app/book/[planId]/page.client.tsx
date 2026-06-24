@@ -195,7 +195,7 @@ export function BookingClient({
 										<div className="checkout-shell">
 											<WhopCheckoutEmbed
 												sessionId={sessionId}
-												theme="light"
+												theme="system"
 												returnUrl={
 													window.location.origin.startsWith("https://")
 														? `${window.location.origin}/book/${planId}?status=success`

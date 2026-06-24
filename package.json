@@ -1,0 +1,27 @@
+{
+  "name": "whop-car-detail",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.105.0",
+    "@whop/checkout": "^0.1.0",
+    "@whop/embedded-components-react-js": "^1.0.0",
+    "@whop/embedded-components-vanilla-js": "^1.0.0",
+    "@whop/sdk": "^0.0.40",
+    "next": "16.2.9",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

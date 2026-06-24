@@ -21,6 +21,7 @@ export function img(
 
 // Curated, hand-checked photo ids.
 export const PHOTOS = {
+	heroClean: "photo-1503736334956-4c8f8e92946d", // yellow Ferrari, sunny tree-lined avenue
 	foamWash: "photo-1607860108855-64acf2078ed9", // person snow-foaming a black car
 	waterSpray: "photo-1520340356584-f9917d1eea6f", // water spraying off a dark car rear
 	interior: "photo-1610647752706-3bb12232b3ab", // clean modern dashboard / interior

@@ -129,7 +129,7 @@ export default async function Home() {
 			<section className="hero-section">
 				<div
 					className="hero-bg"
-					style={{ backgroundImage: `url(${img(PHOTOS.foamWash, { w: 1920, q: 70 })})` }}
+					style={{ backgroundImage: `url(${img(PHOTOS.heroClean, { w: 1920, q: 72 })})` }}
 				/>
 				<div className="hero-content">
 					<span className="local-badge">

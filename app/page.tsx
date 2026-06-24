@@ -141,7 +141,7 @@ export default async function Home() {
 						Get your Car Detailed <br /><span className="accent">In your Driveway.</span>
 					</h1>
 					<p className="hero-sub">
-						Premium detailing that comes to you. Pick a service and choose a time. Pay in person or online. 
+						Premium detailing that comes to you. Pick a service and choose a time. Pay in person or online.
 						Our mobile studio handles the rest while you carry on with your day.
 					</p>
 					<div className="hero-cta">

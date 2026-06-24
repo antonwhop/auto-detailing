@@ -49,7 +49,8 @@ export function serviceImage(title: string, index: number): string {
 	if (t.includes("interior")) return PHOTOS.interior;
 	if (t.includes("ceramic") || t.includes("coat") || t.includes("polish"))
 		return PHOTOS.glossyPorsche;
-	if (t.includes("wash") || t.includes("exterior")) return PHOTOS.waterSpray;
+	if (t.includes("express") || t.includes("wash") || t.includes("exterior"))
+		return PHOTOS.waterSpray;
 	if (t.includes("full") || t.includes("premium") || t.includes("ultimate"))
 		return PHOTOS.foamWash;
 	if (t.includes("member") || t.includes("month") || t.includes("plan"))

@@ -94,7 +94,8 @@ const REVIEWS = [
 	},
 ];
 
-function featuresFor(recurring: boolean): string[] {
+// Fallback bullets for plans that don't yet have metadata.features set in Whop.
+function fallbackFeatures(recurring: boolean): string[] {
 	return recurring
 		? ["Recurring visits on your schedule", "Priority booking & same detailer", "Cancel anytime"]
 		: ["Hand wash & wax", "Interior vacuum & wipe-down", "Wheels, tires & glass"];
@@ -129,8 +130,8 @@ export default async function Home() {
 						Showroom shine, <span className="accent">parked in your driveway.</span>
 					</h1>
 					<p className="hero-sub">
-						Premium detailing that comes to you. Pick a service, choose a time, and pay
-						online — our mobile studio handles the rest while you carry on with your day.
+						Premium detailing that comes to you. Pick a service and choose a time. Pay in person or online. 
+						Our mobile studio handles the rest while you carry on with your day.
 					</p>
 					<div className="hero-cta">
 						<a href="#services" className="btn btn-primary">
@@ -144,10 +145,6 @@ export default async function Home() {
 						<div>
 							<div className="stat-num">5,000+</div>
 							<div className="stat-label">Cars detailed</div>
-						</div>
-						<div>
-							<div className="stat-num">4.9★</div>
-							<div className="stat-label">Avg. rating</div>
 						</div>
 						<div>
 							<div className="stat-num">60 min</div>
@@ -199,7 +196,7 @@ export default async function Home() {
 									<h3>{s.title}</h3>
 									{s.description && <p className="desc">{s.description}</p>}
 									<ul className="service-features">
-										{featuresFor(s.recurring).map((f) => (
+										{(s.features.length > 0 ? s.features : fallbackFeatures(s.recurring)).map((f) => (
 											<li key={f}>{f}</li>
 										))}
 									</ul>

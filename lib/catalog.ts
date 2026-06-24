@@ -12,7 +12,26 @@ export type Service = {
 	price: number;
 	priceLabel: string;
 	cadence: string;
+	features: string[];
 };
+
+// Feature bullets are stored on each Whop plan under metadata.features as a
+// JSON-encoded string array. Parse defensively — bad/missing data yields [].
+function parseFeatures(metadata: { [key: string]: unknown } | null): string[] {
+	const raw = metadata?.features;
+	if (Array.isArray(raw)) return raw.filter((f): f is string => typeof f === "string");
+	if (typeof raw === "string") {
+		try {
+			const parsed = JSON.parse(raw);
+			if (Array.isArray(parsed)) {
+				return parsed.filter((f): f is string => typeof f === "string");
+			}
+		} catch {
+			// not JSON — fall through
+		}
+	}
+	return [];
+}
 
 function toService(p: {
 	id: string;
@@ -22,6 +41,7 @@ function toService(p: {
 	initial_price: number;
 	renewal_price: number;
 	billing_period: number | null;
+	metadata: { [key: string]: unknown } | null;
 }): Service {
 	const recurring = p.plan_type === "renewal";
 	const price = recurring ? p.renewal_price : p.initial_price;
@@ -39,6 +59,7 @@ function toService(p: {
 		price,
 		priceLabel: recurring ? `$${price}/mo` : `$${price}`,
 		cadence,
+		features: parseFeatures(p.metadata),
 	};
 }
 

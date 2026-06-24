@@ -1,0 +1,437 @@
+/* ============================================================
+   Cal.com-style scheduler.
+   Details sidebar · calendar (date) · time list — combined view.
+   ============================================================ */
+
+.panel {
+	display: grid;
+	grid-template-columns: 280px 1fr;
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius);
+	background: var(--bg-2);
+	overflow: hidden;
+	min-height: 540px;
+}
+
+.panelThree {
+	grid-template-columns: 280px 1fr 320px;
+}
+
+@media (max-width: 900px) {
+	.panel,
+	.panelThree {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ----------------------- Details sidebar ----------------------- */
+.aside {
+	padding: 26px 24px;
+	border-right: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+	.aside {
+		border-right: none;
+		border-bottom: 1px solid var(--line);
+	}
+}
+
+.avatar {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background: var(--brand);
+	color: var(--brand-ink);
+	display: grid;
+	place-items: center;
+	font-weight: 800;
+	font-size: 18px;
+	margin-bottom: 16px;
+}
+
+.brand {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--muted);
+	margin: 0 0 2px;
+}
+
+.title {
+	font-size: 22px;
+	font-weight: 800;
+	line-height: 1.2;
+	margin: 0 0 20px;
+	color: var(--ink);
+}
+
+.metaRow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 14.5px;
+	font-weight: 600;
+	color: var(--ink);
+	padding: 7px 0;
+}
+
+.metaRow svg {
+	flex-shrink: 0;
+	color: var(--muted);
+}
+
+.tzSelect {
+	width: auto;
+	border: none;
+	background: transparent;
+	padding: 0;
+	font-size: 14.5px;
+	font-weight: 600;
+	color: var(--ink);
+}
+
+/* The selected-slot recap pinned under the details once a time is chosen. */
+.recap {
+	margin-top: 22px;
+	padding: 12px 14px;
+	border: 1px solid rgba(34, 214, 255, 0.25);
+	background: rgba(34, 214, 255, 0.08);
+	border-radius: 12px;
+}
+
+.recapLabel {
+	display: block;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--brand);
+	margin-bottom: 3px;
+}
+
+.recapVal {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ink);
+}
+
+/* ----------------------- Calendar column ----------------------- */
+.cal {
+	padding: 26px 28px;
+}
+
+.calHead {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 22px;
+}
+
+.month {
+	font-size: 19px;
+	font-weight: 800;
+	color: var(--ink);
+}
+
+.month .year {
+	color: var(--muted);
+	font-weight: 700;
+}
+
+.nav {
+	display: flex;
+	gap: 4px;
+}
+
+.navBtn {
+	margin: 0;
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	display: grid;
+	place-items: center;
+	border: none;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--muted);
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.navBtn:hover:not(:disabled) {
+	background: var(--surface-2);
+	color: var(--ink);
+}
+
+.navBtn:disabled {
+	opacity: 0.25;
+	cursor: not-allowed;
+}
+
+.weekdays {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	margin-bottom: 8px;
+}
+
+.weekday {
+	text-align: center;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--faint);
+	padding: 4px 0;
+}
+
+.days {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 6px;
+}
+
+.day {
+	position: relative;
+	margin: 0;
+	aspect-ratio: 1 / 1;
+	padding: 0;
+	display: grid;
+	place-items: center;
+	border: none;
+	border-radius: 10px;
+	background: transparent;
+	color: var(--faint);
+	font-size: 15px;
+	font-weight: 600;
+	cursor: default;
+}
+
+.dayAvailable {
+	color: var(--ink);
+	background: var(--surface-2);
+	cursor: pointer;
+}
+
+.dayAvailable:hover {
+	background: var(--line-strong);
+}
+
+.dayDisabled {
+	color: var(--faint);
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.dayToday::after {
+	content: "";
+	position: absolute;
+	bottom: 7px;
+	width: 4px;
+	height: 4px;
+	border-radius: 999px;
+	background: var(--brand);
+}
+
+.daySelected,
+.daySelected:hover {
+	background: #fff;
+	color: #0a0c10;
+}
+
+.daySelected.dayToday::after {
+	background: #0a0c10;
+}
+
+.crossMonth {
+	position: absolute;
+	top: 5px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 9px;
+	font-weight: 800;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--faint);
+}
+
+/* ----------------------- Times column ----------------------- */
+.times {
+	padding: 26px 24px;
+	border-left: 1px solid var(--line);
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+@media (max-width: 900px) {
+	.times {
+		border-left: none;
+		border-top: 1px solid var(--line);
+	}
+}
+
+.timesHead {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.timesDate {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--ink);
+}
+
+.timesDate .dim {
+	color: var(--muted);
+	font-weight: 600;
+	margin-left: 4px;
+}
+
+.fmtToggle {
+	display: inline-flex;
+	border: 1px solid var(--line-strong);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.fmtBtn {
+	margin: 0;
+	padding: 5px 11px;
+	border: none;
+	background: transparent;
+	color: var(--muted);
+	font-size: 12.5px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.fmtBtnActive {
+	background: var(--surface-2);
+	color: var(--ink);
+}
+
+.timeList {
+	display: grid;
+	gap: 10px;
+	overflow-y: auto;
+}
+
+.time {
+	margin: 0;
+	width: 100%;
+	padding: 13px 16px;
+	border: 1px solid var(--line-strong);
+	border-radius: 10px;
+	background: transparent;
+	color: var(--ink);
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	text-align: center;
+	transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.time:hover {
+	border-color: var(--brand);
+	background: rgba(34, 214, 255, 0.08);
+}
+
+.timeSelected,
+.timeSelected:hover {
+	background: var(--brand);
+	border-color: var(--brand);
+	color: var(--brand-ink);
+}
+
+.empty {
+	font-size: 13.5px;
+	color: var(--muted);
+	text-align: center;
+	margin: auto 0;
+	padding: 40px 0;
+}
+
+/* ----------------------- Location / review (content area) ----------------------- */
+.content {
+	padding: 30px 32px;
+	max-width: 540px;
+}
+
+.backRow {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0 0 18px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: var(--muted);
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.backRow:hover {
+	color: var(--ink);
+}
+
+.stepLabel {
+	font-size: 21px;
+	font-weight: 800;
+	margin: 0 0 6px;
+	color: var(--ink);
+}
+
+.fieldHelp {
+	color: var(--muted);
+	font-size: 14px;
+	margin: 0 0 16px;
+}
+
+.summary {
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	background: var(--surface);
+	padding: 4px 16px;
+	margin-bottom: 4px;
+}
+
+.summaryRow {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 13px 0;
+	border-bottom: 1px solid var(--line);
+}
+
+.summaryRow:last-child {
+	border-bottom: none;
+}
+
+.summaryRow .ic {
+	font-size: 16px;
+	line-height: 1.3;
+	width: 20px;
+	text-align: center;
+	flex-shrink: 0;
+}
+
+.summaryRow .label {
+	display: block;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--faint);
+	margin-bottom: 2px;
+}
+
+.summaryRow .val {
+	font-size: 14.5px;
+	font-weight: 600;
+	color: var(--ink);
+}

@@ -3,7 +3,7 @@
 import { WhopCheckoutEmbed } from "@whop/checkout/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CalendarPicker } from "@/components/CalendarPicker";
+import { BookingScheduler } from "@/components/BookingScheduler";
 import { Logo } from "@/components/Logo";
 
 function fmtSlot(iso: string): string {
@@ -18,20 +18,12 @@ function fmtSlot(iso: string): string {
 	});
 }
 
-const PERKS = [
-	{ ic: "🚐", t: "We come to you", d: "Anywhere in Palo Alto & the Peninsula — our mobile unit is fully self-contained." },
-	{ ic: "🧴", t: "Pro-grade products", d: "Swirl-free wash, premium sealants, microfiber finish." },
-	{ ic: "🛡️", t: "Insured & guaranteed", d: "Local, background-checked detailers and a satisfaction guarantee." },
-];
-
 export function BookingClient({
 	planId,
 	title,
-	description,
 	priceLabel,
 	cadence,
 	recurring,
-	image,
 	slots,
 	referral,
 	success,
@@ -47,8 +39,7 @@ export function BookingClient({
 	referral: string | null;
 	success: boolean;
 }) {
-	const [slot, setSlot] = useState(slots[0] ?? "");
-	const [email, setEmail] = useState("");
+	const [slot, setSlot] = useState("");
 	const [sessionId, setSessionId] = useState<string | null>(null);
 	const [busy, setBusy] = useState(false);
 	const [err, setErr] = useState<string | null>(null);
@@ -57,14 +48,23 @@ export function BookingClient({
 
 	useEffect(() => setMounted(true), []);
 
-	async function start() {
+	async function start({
+		slot: chosenSlot,
+		location,
+		email,
+	}: {
+		slot: string;
+		location: string;
+		email: string;
+	}) {
+		setSlot(chosenSlot);
 		setBusy(true);
 		setErr(null);
 		try {
 			const res = await fetch("/api/checkout", {
 				method: "POST",
 				headers: { "content-type": "application/json" },
-				body: JSON.stringify({ planId, ref: referral, slot, email }),
+				body: JSON.stringify({ planId, ref: referral, slot: chosenSlot, location, email }),
 			});
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error ?? "Could not start checkout");
@@ -104,111 +104,53 @@ export function BookingClient({
 						</div>
 					)}
 
-					<div className="booking-grid">
-						{/* Left: the pitch */}
-						<div>
-							<div className="booking-hero">
-								<img src={image} alt={title} />
-								<div className="overlay">
-									<span className="eyebrow">Mobile detailing</span>
-									<h1>{title}</h1>
-									<div className="price-row">
-										{priceLabel && <span className="price">{priceLabel}</span>}
-										{cadence && <span className="muted">{cadence} · we come to you</span>}
-									</div>
-								</div>
-							</div>
+					{referral && !sessionId && (
+						<div className="alert ok" style={{ marginBottom: 18 }}>
+							Referral <span className="pill">{referral}</span> applied.
+						</div>
+					)}
 
-							{description && (
-								<p className="muted" style={{ marginTop: 20, fontSize: 15 }}>
-									{description}
-								</p>
-							)}
-
-							<div className="booking-perks">
-								{PERKS.map((p) => (
-									<div className="perk" key={p.t}>
-										<span className="ic">{p.ic}</span>
-										<div>
-											<strong>{p.t}</strong>
-											<span>{p.d}</span>
-										</div>
-									</div>
-								))}
+					{!sessionId ? (
+						slots.length > 0 ? (
+							<BookingScheduler
+								serviceTitle={title}
+								priceLabel={priceLabel}
+								cadence={cadence}
+								recurring={recurring}
+								slots={slots}
+								busy={busy}
+								error={err}
+								onConfirm={start}
+							/>
+						) : (
+							<p className="muted">No times available right now.</p>
+						)
+					) : done ? (
+						<div className="card booking-pay">
+							<div className="alert ok">
+								Booked{slot ? ` for ${fmtSlot(slot)}` : ""}! 🎉 A receipt is on its way.
 							</div>
 						</div>
-
-						{/* Right: the booking flow */}
-						<div className="card">
-							{!sessionId ? (
-								<>
-									<h2>Book your appointment</h2>
-									<p className="sub">Choose a time and we’ll handle the rest.</p>
-
-									{referral && (
-										<div className="alert ok">
-											Referral <span className="pill">{referral}</span> applied.
-										</div>
-									)}
-
-									<label>Pick a time</label>
-									{slots.length > 0 ? (
-										<CalendarPicker slots={slots} value={slot} onChange={setSlot} />
-									) : (
-										<p className="muted">No times available right now.</p>
-									)}
-
-									<label>Your email</label>
-									<input
-										type="email"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										placeholder="you@example.com"
+					) : (
+						mounted && (
+							<div className="card booking-pay">
+								<h2>Complete your payment</h2>
+								{slot && <div className="appointment-tag">🗓️ {fmtSlot(slot)}</div>}
+								<div className="checkout-shell">
+									<WhopCheckoutEmbed
+										sessionId={sessionId}
+										theme="system"
+										returnUrl={
+											window.location.origin.startsWith("https://")
+												? `${window.location.origin}/book/${planId}?status=success`
+												: undefined
+										}
+										onComplete={() => setDone(true)}
 									/>
-
-									{recurring && (
-										<p className="muted" style={{ marginTop: 12, fontSize: 13.5 }}>
-											This is a monthly membership — your first visit is scheduled above
-											and you’ll be billed each month. Cancel anytime.
-										</p>
-									)}
-
-									<button
-										className="btn btn-primary btn-block"
-										style={{ marginTop: 18 }}
-										disabled={busy || !slot}
-										onClick={start}
-									>
-										{busy ? "Loading…" : "Continue to payment →"}
-									</button>
-									{err && <div className="alert err">{err}</div>}
-								</>
-							) : done ? (
-								<div className="alert ok">
-									Booked{slot ? ` for ${fmtSlot(slot)}` : ""}! 🎉 A receipt is on its way.
 								</div>
-							) : (
-								mounted && (
-									<>
-										<h2>Complete your payment</h2>
-										{slot && <div className="appointment-tag">🗓️ {fmtSlot(slot)}</div>}
-										<div className="checkout-shell">
-											<WhopCheckoutEmbed
-												sessionId={sessionId}
-												theme="system"
-												returnUrl={
-													window.location.origin.startsWith("https://")
-														? `${window.location.origin}/book/${planId}?status=success`
-														: undefined
-												}
-												onComplete={() => setDone(true)}
-											/>
-										</div>
-									</>
-								)
-							)}
-						</div>
-					</div>
+							</div>
+						)
+					)}
 				</div>
 			</div>
 		</>

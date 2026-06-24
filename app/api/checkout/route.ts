@@ -7,16 +7,18 @@ import { whop } from "@/lib/whop";
 // as affiliate_code. The returned sessionId is rendered by <WhopCheckoutEmbed>.
 export async function POST(req: Request) {
 	try {
-		const { planId, ref, slot, email } = (await req.json()) as {
+		const { planId, ref, slot, location, email } = (await req.json()) as {
 			planId?: string;
 			ref?: string;
 			slot?: string;
+			location?: string;
 			email?: string;
 		};
 		if (!planId) return fail("planId is required", 400);
 
 		const metadata: Record<string, unknown> = {};
 		if (slot) metadata.slot = slot;
+		if (location) metadata.location = location;
 		if (ref) metadata.ref = ref;
 		if (email) metadata.email = email;
 

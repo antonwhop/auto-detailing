@@ -959,6 +959,14 @@ img {
 	padding: 28px;
 }
 
+/* The payment step sits in a centered card once the scheduler is done. */
+.booking-pay {
+	max-width: 520px;
+	margin: 0 auto;
+	background: var(--surface-2);
+	border: 1px solid var(--line-strong);
+}
+
 .card h2 {
 	font-size: 20px;
 	font-weight: 700;

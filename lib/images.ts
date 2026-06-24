@@ -53,7 +53,7 @@ export function serviceImage(title: string, index: number): string {
 		return PHOTOS.waterSpray;
 	if (t.includes("full") || t.includes("premium") || t.includes("ultimate"))
 		return PHOTOS.foamWash;
-	if (t.includes("member") || t.includes("month") || t.includes("plan"))
+	if (t.includes("member") || t.includes("month") || t.includes("plan") || t.includes("club"))
 		return PHOTOS.cleanSedan;
 	return ROTATION[index % ROTATION.length];
 }

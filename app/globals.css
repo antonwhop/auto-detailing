@@ -175,22 +175,42 @@ img {
 .brand {
 	display: inline-flex;
 	align-items: center;
-	gap: 10px;
-	font-family: var(--head);
-	font-weight: 800;
-	font-size: 19px;
+	gap: 11px;
 	color: var(--ink);
-	letter-spacing: -0.02em;
 }
 
 .brand-mark {
+	flex: none;
 	width: 30px;
 	height: 30px;
 	border-radius: 9px;
 	background: var(--brand);
+	color: var(--brand-ink);
 	display: grid;
 	place-items: center;
-	font-size: 16px;
+}
+
+.brand-word {
+	display: flex;
+	flex-direction: column;
+	line-height: 1;
+}
+
+.brand-name {
+	font-family: var(--head);
+	font-weight: 800;
+	font-size: 17px;
+	letter-spacing: -0.01em;
+}
+
+.brand-sub {
+	font-family: var(--body);
+	font-weight: 600;
+	font-size: 9.5px;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	color: var(--muted);
+	margin-top: 4px;
 }
 
 .nav-links {
@@ -299,6 +319,74 @@ img {
 	font-size: 13px;
 	color: var(--muted);
 	margin-top: 2px;
+}
+
+.local-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 7px 13px 7px 10px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid var(--line-strong);
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--ink);
+	margin-bottom: 22px;
+}
+
+.local-badge .dot-live {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--brand);
+}
+
+/* ----------------------- Service-area bar ----------------------- */
+.area-bar {
+	border-bottom: 1px solid var(--line);
+	background: var(--bg-2);
+}
+
+.area-bar-inner {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: 22px 24px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 14px 22px;
+}
+
+.area-bar .area-label {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--brand);
+}
+
+.area-bar .area-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 20px;
+	color: var(--muted);
+	font-size: 14.5px;
+	font-weight: 500;
+}
+
+.area-bar .area-list span {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.area-bar .area-list span:not(:last-child)::after {
+	content: "";
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: var(--line-strong);
 }
 
 /* ----------------------- Section scaffolding ----------------------- */

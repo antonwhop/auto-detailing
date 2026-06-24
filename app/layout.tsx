@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	title: "Shine — Mobile Car Detailing",
+	title: "Palo Alto Auto Spa — Mobile Car Detailing",
 	description:
-		"Showroom shine, parked in your driveway. Premium mobile car detailing that comes to you — book a service, pick a time, and pay online.",
+		"Locally owned mobile car detailing in Palo Alto, CA. We bring the studio to your driveway across the Peninsula — book a service, pick a time, and pay in person or online.",
 };
 
 export default function RootLayout({

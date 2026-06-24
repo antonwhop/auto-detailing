@@ -1,7 +1,17 @@
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import { listServices } from "@/lib/catalog";
 import { missingRequiredEnv } from "@/lib/env";
 import { img, PHOTOS, serviceImage } from "@/lib/images";
+
+const SERVICE_AREA = [
+	"Palo Alto",
+	"Menlo Park",
+	"Stanford",
+	"Los Altos",
+	"Mountain View",
+	"Atherton",
+];
 
 export const dynamic = "force-dynamic";
 
@@ -9,10 +19,7 @@ function SiteNav() {
 	return (
 		<nav className="nav">
 			<div className="nav-inner">
-				<Link href="/" className="brand">
-					<span className="brand-mark">✦</span>
-					Shine
-				</Link>
+				<Logo />
 				<div className="nav-links">
 					<a href="#services" className="nav-link">
 						Services
@@ -53,8 +60,8 @@ const STEPS = [
 const FEATURES = [
 	{
 		ic: "🚐",
-		t: "100% mobile",
-		d: "Driveway, office lot, or apartment garage — we bring the whole studio to you.",
+		t: "We come to you",
+		d: "Crescent Park driveway, a Sand Hill office lot, a Stanford apartment garage — we bring the whole studio to you.",
 	},
 	{
 		ic: "🧴",
@@ -63,13 +70,13 @@ const FEATURES = [
 	},
 	{
 		ic: "💧",
-		t: "Eco water-saving",
-		d: "Our rinseless process uses a fraction of the water of a traditional wash.",
+		t: "Easy on the drought",
+		d: "Our rinseless process uses a fraction of the water of a traditional wash — California-conscious by design.",
 	},
 	{
-		ic: "🛡️",
-		t: "Fully insured",
-		d: "Trained, background-checked detailers and full coverage on every booking.",
+		ic: "🤝",
+		t: "Locally owned",
+		d: "A small Palo Alto crew you'll get to know by name — fully insured, and we treat your neighbors' cars like our own.",
 	},
 ];
 

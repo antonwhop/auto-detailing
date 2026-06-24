@@ -1,11 +1,10 @@
 import { env } from "@/lib/env";
 import { fail, ok } from "@/lib/http";
-import { randomId, updateStore } from "@/lib/store";
 import { whop } from "@/lib/whop";
 
-// Real: create a checkout session for a plan. Attaches the chosen slot + referral
-// to metadata, and forwards the referral as `affiliate_code`. The returned
-// sessionId is rendered by <WhopCheckoutEmbed> on the booking page.
+// Creates a Whop checkout session for a plan. The chosen appointment time and the
+// customer email are attached as metadata; a referral code (if any) is forwarded
+// as affiliate_code. The returned sessionId is rendered by <WhopCheckoutEmbed>.
 export async function POST(req: Request) {
 	try {
 		const { planId, ref, slot, email } = (await req.json()) as {
@@ -31,18 +30,6 @@ export async function POST(req: Request) {
 			affiliate_code: ref || undefined,
 			metadata,
 			redirect_url,
-		});
-
-		await updateStore((st) => {
-			st.bookings.push({
-				id: randomId("bkg"),
-				planId,
-				slot: slot ?? "",
-				email: email ?? "",
-				ref,
-				sessionId: session.id,
-				createdAt: new Date().toISOString(),
-			});
 		});
 
 		return ok({ sessionId: session.id, purchaseUrl: session.purchase_url });

@@ -1,4 +1,5 @@
-import { readStore } from "@/lib/store";
+import { getService } from "@/lib/catalog";
+import { defaultSlots } from "@/lib/http";
 import { BookingClient } from "./page.client";
 
 export const dynamic = "force-dynamic";
@@ -12,16 +13,16 @@ export default async function BookPage({
 }) {
 	const { planId } = await params;
 	const { ref, status } = await searchParams;
-	const s = await readStore();
-	const plan = s.plans.find((p) => p.id === planId) ?? null;
-	const slots = s.availability[planId] ?? [];
+	const service = await getService(planId);
 
 	return (
 		<BookingClient
 			planId={planId}
-			planTitle={plan?.title ?? "Car detailing"}
-			price={plan?.price ?? null}
-			slots={slots}
+			title={service?.title ?? "Car detailing"}
+			priceLabel={service?.priceLabel ?? null}
+			cadence={service?.cadence ?? null}
+			recurring={service?.recurring ?? false}
+			slots={defaultSlots()}
 			referral={ref ?? null}
 			success={status === "success"}
 		/>

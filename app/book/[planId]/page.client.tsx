@@ -1,6 +1,7 @@
 "use client";
 
 import { WhopCheckoutEmbed } from "@whop/checkout/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function fmtSlot(iso: string): string {
@@ -10,15 +11,19 @@ function fmtSlot(iso: string): string {
 
 export function BookingClient({
 	planId,
-	planTitle,
-	price,
+	title,
+	priceLabel,
+	cadence,
+	recurring,
 	slots,
 	referral,
 	success,
 }: {
 	planId: string;
-	planTitle: string;
-	price: number | null;
+	title: string;
+	priceLabel: string | null;
+	cadence: string | null;
+	recurring: boolean;
 	slots: string[];
 	referral: string | null;
 	success: boolean;
@@ -55,8 +60,15 @@ export function BookingClient({
 	return (
 		<div className="wrap" style={{ maxWidth: 520 }}>
 			<header className="hero">
-				<h1>Book: {planTitle}</h1>
-				<p>{price != null ? `$${price} · we come to you` : "We come to you"}</p>
+				<Link href="/" className="muted">
+					← All services
+				</Link>
+				<h1 style={{ marginTop: 10 }}>{title}</h1>
+				<p>
+					{priceLabel ? <strong>{priceLabel}</strong> : null}
+					{priceLabel && cadence ? ` · ${cadence}` : cadence}
+					{" · we come to you"}
+				</p>
 			</header>
 
 			{success && (
@@ -81,11 +93,22 @@ export function BookingClient({
 								))}
 							</select>
 						) : (
-							<p className="muted">No times published yet — contact the business.</p>
+							<p className="muted">No times available right now.</p>
 						)}
 						<label>Your email</label>
-						<input value={email} onChange={(e) => setEmail(e.target.value)} />
-						<button disabled={busy} onClick={start}>
+						<input
+							type="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							placeholder="you@example.com"
+						/>
+						{recurring && (
+							<p className="muted" style={{ marginTop: 8 }}>
+								This is a monthly membership — your first visit is scheduled above and
+								you’ll be billed each month.
+							</p>
+						)}
+						<button disabled={busy || !slot} onClick={start}>
 							{busy ? "Loading…" : "Continue to payment"}
 						</button>
 						{err && <div className="alert err">{err}</div>}
@@ -97,9 +120,7 @@ export function BookingClient({
 				) : (
 					mounted && (
 						<>
-							{slot && (
-								<p className="muted">Appointment: {fmtSlot(slot)}</p>
-							)}
+							{slot && <p className="muted">Appointment: {fmtSlot(slot)}</p>}
 							<WhopCheckoutEmbed
 								sessionId={sessionId}
 								theme="light"

@@ -227,3 +227,54 @@ pre.plan {
 	font-size: 13px;
 	margin: 8px 0 0;
 }
+
+/* customer storefront */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 16px;
+	margin-top: 22px;
+}
+
+.service {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: var(--card);
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	padding: 18px;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.service h2 {
+	margin: 8px 0 4px;
+	font-size: 18px;
+}
+
+.service-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 18px;
+}
+
+.price {
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.cta {
+	background: var(--brand);
+	color: var(--brand-ink);
+	text-decoration: none;
+	padding: 8px 14px;
+	border-radius: 9px;
+	font-weight: 600;
+	font-size: 14px;
+	white-space: nowrap;
+}
+
+.cta:hover {
+	opacity: 0.92;
+}

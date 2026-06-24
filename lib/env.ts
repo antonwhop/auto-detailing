@@ -18,13 +18,9 @@ export const env = {
 	get whopCompanyId() {
 		return required("WHOP_COMPANY_ID");
 	},
-	get whopParentCompanyId() {
-		return (
-			process.env.WHOP_PARENT_COMPANY_ID || process.env.WHOP_COMPANY_ID || ""
-		);
-	},
-	anthropicApiKey: process.env.ANTHROPIC_API_KEY || "",
-	anthropicModel: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
+	// Optional: restrict the storefront to one product's plans. If unset, all of
+	// the company's visible plans are shown.
+	whopProductId: process.env.WHOP_PRODUCT_ID || "",
 	get baseUrl() {
 		if (process.env.NEXT_PUBLIC_BASE_URL) return process.env.NEXT_PUBLIC_BASE_URL;
 		// On Vercel, default to the stable production https domain.

@@ -4,6 +4,7 @@ import { WhopCheckoutEmbed } from "@whop/checkout/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CalendarPicker } from "@/components/CalendarPicker";
+import { Logo } from "@/components/Logo";
 
 function fmtSlot(iso: string): string {
 	const d = new Date(iso);
@@ -18,9 +19,9 @@ function fmtSlot(iso: string): string {
 }
 
 const PERKS = [
-	{ ic: "🚐", t: "We come to you", d: "Home, office, anywhere — our mobile unit is fully self-contained." },
+	{ ic: "🚐", t: "We come to you", d: "Anywhere in Palo Alto & the Peninsula — our mobile unit is fully self-contained." },
 	{ ic: "🧴", t: "Pro-grade products", d: "Swirl-free wash, premium sealants, microfiber finish." },
-	{ ic: "🛡️", t: "Insured & guaranteed", d: "Background-checked detailers and a satisfaction guarantee." },
+	{ ic: "🛡️", t: "Insured & guaranteed", d: "Local, background-checked detailers and a satisfaction guarantee." },
 ];
 
 export function BookingClient({
@@ -79,10 +80,7 @@ export function BookingClient({
 		<>
 			<nav className="nav">
 				<div className="nav-inner">
-					<Link href="/" className="brand">
-						<span className="brand-mark">✦</span>
-						Shine
-					</Link>
+					<Logo />
 					<div className="nav-links">
 						<Link href="/#services" className="nav-link">
 							Services

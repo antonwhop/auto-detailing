@@ -82,21 +82,21 @@ const FEATURES = [
 
 const REVIEWS = [
 	{
-		q: "Booked a full detail on my lunch break and came out to a car that looked brand new. The interior smelled incredible. Worth every penny.",
+		q: "Booked a full detail on my lunch break on California Ave and came out to a car that looked brand new. The interior smelled incredible. Worth every penny.",
 		name: "Marcus T.",
-		role: "Tesla Model 3",
+		role: "Tesla Model 3 · Midtown",
 		initials: "MT",
 	},
 	{
-		q: "I'm on the monthly membership now. Same detailer every time, always on schedule, and my black paint has zero swirls. Can't recommend enough.",
+		q: "I'm on the monthly membership now. Same detailer every time, always on schedule, and my black paint has zero swirls. Can't recommend them enough.",
 		name: "Priya S.",
-		role: "BMW M340i",
+		role: "BMW M340i · Old Palo Alto",
 		initials: "PS",
 	},
 	{
-		q: "They showed up to my office, knocked out the SUV in the parking lot, and I never had to leave my desk. This is the future of car care.",
+		q: "They came to my office near Stanford, knocked out the SUV right in the parking lot, and I never had to leave my desk. This is how car care should work.",
 		name: "Derek L.",
-		role: "Audi Q5",
+		role: "Audi Q5 · Menlo Park",
 		initials: "DL",
 	},
 ];
@@ -132,7 +132,11 @@ export default async function Home() {
 					style={{ backgroundImage: `url(${img(PHOTOS.foamWash, { w: 1920, q: 70 })})` }}
 				/>
 				<div className="hero-content">
-					<span className="eyebrow">Mobile car detailing</span>
+					<span className="local-badge">
+						<span className="dot-live" />
+						Now booking across the Peninsula
+					</span>
+					<span className="eyebrow">Mobile car detailing · Palo Alto, CA</span>
 					<h1>
 						Showroom shine, <span className="accent">parked in your driveway.</span>
 					</h1>
@@ -160,6 +164,18 @@ export default async function Home() {
 					</div>
 				</div>
 			</section>
+
+			{/* ----------------------- Service-area bar ----------------------- */}
+			<div className="area-bar">
+				<div className="area-bar-inner">
+					<span className="area-label">Proudly serving</span>
+					<div className="area-list">
+						{SERVICE_AREA.map((city) => (
+							<span key={city}>{city}</span>
+						))}
+					</div>
+				</div>
+			</div>
 
 			{/* ----------------------- Services ----------------------- */}
 			<section className="section" id="services">
@@ -246,11 +262,11 @@ export default async function Home() {
 			<section className="section">
 				<div className="container">
 					<div className="section-head">
-						<span className="eyebrow">Why Shine</span>
+						<span className="eyebrow">Why Palo Alto Auto Spa</span>
 						<h2>The careful kind of clean</h2>
 						<p>
 							We treat every vehicle like it’s about to roll across a concours lawn —
-							because the details are the whole point.
+							because around here, the details are the whole point.
 						</p>
 					</div>
 					<div className="feat-grid">
@@ -327,7 +343,7 @@ export default async function Home() {
 						<div className="cta-band-inner">
 							<div>
 								<h2>Ready to fall back in love with your car?</h2>
-								<p>Book in under a minute. We’ll bring the shine to your driveway.</p>
+								<p>Book in under a minute. We’ll bring the studio to your Palo Alto driveway.</p>
 							</div>
 							<a href="#services" className="btn btn-primary">
 								Book a detail →
@@ -342,13 +358,10 @@ export default async function Home() {
 				<div className="container">
 					<div className="footer-grid">
 						<div>
-							<Link href="/" className="brand">
-								<span className="brand-mark">✦</span>
-								Shine
-							</Link>
+							<Logo />
 							<p>
-								Premium mobile car detailing. We bring the studio to your driveway —
-								water, power, and a perfectionist’s eye included.
+								Locally owned mobile car detailing, born in Palo Alto. We bring the studio
+								to your driveway — water, power, and a perfectionist’s eye included.
 							</p>
 						</div>
 						<div>
@@ -371,15 +384,15 @@ export default async function Home() {
 						<div>
 							<h4>Get in touch</h4>
 							<ul>
-								<li>hello@shinedetailing.co</li>
-								<li>(555) 246-8100</li>
+								<li>hello@paloaltoautospa.com</li>
+								<li>(650) 530-0199</li>
 								<li>Mon–Sat · 8am–6pm</li>
-								<li>Serving the greater metro area</li>
+								<li>Palo Alto &amp; the Peninsula</li>
 							</ul>
 						</div>
 					</div>
 					<div className="footer-bottom">
-						<span>© {new Date().getFullYear()} Shine Mobile Detailing</span>
+						<span>© {new Date().getFullYear()} Palo Alto Auto Spa · Locally owned</span>
 						<span>Booking & payments powered by Whop</span>
 					</div>
 				</div>

@@ -138,7 +138,7 @@ export default async function Home() {
 					</span>
 					{/* <span className="eyebrow">Mobile car detailing · Palo Alto, CA</span> */}
 					<h1>
-						Showroom shine, <span className="accent">parked in your driveway.</span>
+						Get your Car Detailed, <span className="accent">In your Driveway.</span>
 					</h1>
 					<p className="hero-sub">
 						Premium detailing that comes to you. Pick a service and choose a time. Pay in person or online. 

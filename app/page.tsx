@@ -136,7 +136,7 @@ export default async function Home() {
 						<span className="dot-live" />
 						Now booking across the Peninsula
 					</span>
-					<span className="eyebrow">Mobile car detailing · Palo Alto, CA</span>
+					{/* <span className="eyebrow">Mobile car detailing · Palo Alto, CA</span> */}
 					<h1>
 						Showroom shine, <span className="accent">parked in your driveway.</span>
 					</h1>
@@ -182,7 +182,7 @@ export default async function Home() {
 				<div className="container">
 					<div className="section-head">
 						<span className="eyebrow">Our packages</span>
-						<h2>Detailing built around your car</h2>
+						<h2>Detailing on your schedule</h2>
 						<p>
 							From a quick refresh to a full paint-correcting transformation — pick the
 							package that fits, then lock in a time.
